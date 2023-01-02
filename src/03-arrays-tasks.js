@@ -34,8 +34,12 @@ function findElement(arr, value) {
  *    2 => [ 1, 3 ]
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
+function generateOdds(len) {
+  function iter(n, current, acc) {
+    if (n === len) return acc;
+    return iter(n + 1, current + 2, acc.concat(current));
+  }
+  return iter(0, 1, []);
 }
 
 /**
@@ -216,8 +220,8 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  return arr.join('\n');
 }
 
 /**
@@ -249,8 +253,17 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  const result = [];
+  if (!arr.length) return result;
+
+  const totalSum = arr.reduce((sum, item) => {
+    result.push(sum);
+    return sum + item;
+  });
+  result.push(totalSum);
+
+  return result;
 }
 
 /**
@@ -356,8 +369,72 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  return arr.sort((a, b) => {
+    let arg1 = 0;
+    let arg2 = 0;
+    if (a === 'zero') {
+      arg1 = 0;
+    }
+    if (a === 'one') {
+      arg1 = 1;
+    }
+    if (a === 'two') {
+      arg1 = 2;
+    }
+    if (a === 'three') {
+      arg1 = 3;
+    }
+    if (a === 'four') {
+      arg1 = 4;
+    }
+    if (a === 'five') {
+      arg1 = 5;
+    }
+    if (a === 'six') {
+      arg1 = 6;
+    }
+    if (a === 'seven') {
+      arg1 = 7;
+    }
+    if (a === 'eight') {
+      arg1 = 8;
+    }
+    if (a === 'nine') {
+      arg1 = 9;
+    }
+    if (b === 'zero') {
+      arg2 = 0;
+    }
+    if (b === 'one') {
+      arg2 = 1;
+    }
+    if (b === 'two') {
+      arg2 = 2;
+    }
+    if (b === 'three') {
+      arg2 = 3;
+    }
+    if (b === 'four') {
+      arg2 = 4;
+    }
+    if (b === 'five') {
+      arg2 = 5;
+    }
+    if (b === 'six') {
+      arg2 = 6;
+    }
+    if (b === 'seven') {
+      arg2 = 7;
+    }
+    if (b === 'eight') {
+      arg2 = 8;
+    }
+    if (b === 'nine') {
+      arg2 = 9;
+    }
+    return arg1 - arg2;
+  });
 }
 
 /**
@@ -465,8 +542,21 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    const countryA = a.country.toLowerCase();
+    const countryB = b.country.toLowerCase();
+    if (countryA < countryB) return -1;
+    if (countryA > countryB) return 1;
+    if (countryA === countryB) {
+      const cityA = a.city.toLowerCase();
+      const cityB = b.city.toLowerCase();
+      if (cityA < cityB) return -1;
+      if (cityA > cityB) return 1;
+      return 0;
+    }
+    return 0;
+  });
 }
 
 /**
@@ -487,8 +577,10 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array(n)
+    .fill(Array(n).fill())
+    .map((xs, i) => xs.map((x, j) => (i === j ? 1 : 0)));
 }
 
 /**
@@ -576,8 +668,12 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.reduce(
+    (accumArr, currVal) => accumArr.concat(childrenSelector(currVal)),
+    // eslint-disable-next-line
+    []
+  );
 }
 
 /**
